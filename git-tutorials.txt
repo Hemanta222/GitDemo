@@ -1,0 +1,249 @@
+--------------------------------Git-------------------------------
+#1. git Version   
+-> git --version
+#2. git --help
+-------------------------git-config - Get and set repository or global options----------------------
+#1.List all variables set in config file, along with their values.
+-> git config -l    or -> git config --List
+#2. To rename git global user name and email
+-> git config --global user.name "sunu";
+-> git config --global user.email "sunu@gmail.com"
+
+
+---------------------------git-init - Create an empty Git repository or reinitialize an existing one------------------------
+
+#1.initialize git 
+-> git init
+#2.add all files to track
+-> git add .
+#2.1 add a specific file to stage
+-> git add filename 
+e.g git add index.php
+#3.commiting git files
+-> git commit -m 'first commit'    
+#4. git status command can be used to obtain a summary of which files have changes that are staged for the next commit.
+-> git status
+#5. check commits
+-> git log
+#6. 
+
+
+
+
+
+
+
+
+-------------------------------BRANCH-------------------------------
+#1. show branches 
+-> git branch
+Notice the * character that prefixes the master branch: it indicates the branch that you currently
+have checked out (i.e., the branch that HEAD points to). This means that if you commit at this point,
+the master branch will be moved forward with your new work.
+
+#1.1 To see all branches(local and remote)
+-> git branch --all          or 
+-> git branch -a
+
+#1.2 To see all remote branches
+-> git branch -r            or
+-> git branch --remotes
+
+#2. To see the last commit on each branch
+-> git branch -v
+
+#3. To see which branches are already merged into the branch you’re on
+-> git branch --merged
+
+#4. To see all the branches that contain work you haven’t yet merged in
+-> git branch --no-merged
+
+#5. To delete previously merged branch
+-> git branch -d sunu
+
+#6. To remove non-merged branch use force delete {Shortcut for --delete --force.}
+i.e If you really do want to delete the branch and lose that work, you can force it with -D
+-> git branch -D master
+
+#7. To check --no-merged or --merged with another branch without checkout to that branch use
+-> git branch --no-merged 'brachname'
+-> git branch --merged 'brachname'
+
+#8. Rename the branch locally with the git branch --move command:   (current selected branch)
+-> git branch --move old-branch-name new-branch-name        or  
+-> git branch -m oldname newname
+e.g -> git branch --move master main
+
+#8.1 To forcefully rename a brachname {Shortcut for --move --force}
+-> get branch -M oldname newname    or
+-> get branch -M newname        {rename current branch}
+
+#8.2 TO rename a remote branch
+-> git remote rename <old-name> <new-name>
+
+#9. To let others see the corrected branch on the remote, push it:
+-> git push --set-upstream origin brachname             or
+-> git push -u origin main
+e.g git push --set-upstream origin master
+
+#10. To Delete a branch from Remote
+-> git push origin --delete brachname
+or
+-> git push  -d origin <branch-name>
+e.g -> git push origin --delete main
+
+
+-------------------------------Git Checkout-----------------------------------------------
+#1. Create a new branch (new branch will point to the current commit HEAD)
+-> git branch branchname 
+e.g -> git branch sunu
+
+#1.1 Create a new brach with different HEAD (use "git log" to get commit id)
+-> git branch brachname commitID
+-> git branch sunu 4ee8652e7a997cbd327beca5de340840cb617bfe
+#1.2 Creating a Branch from Another Branch  [e.g creating the feature4 branch from the develop branch.]
+-> git checkout -b feature4 develop 
+
+#2. to switch from one branch to ather branch
+-> git checkout branchname
+e.g -> git checkout sunu
+
+
+#3. creating a new branch and then checkout {if brach is not exist}
+-> git checkout -b brachname
+#4 Create a new brach and checkout {if does not exist than create a new one else reset the branch }
+-> git checkout -B brachname
+#5 To revert back to all unstaged changes
+-> git checkout --.
+
+---------------------------Git Remote----------------------------
+The git remote command is essentially an interface for managing a list of remote entries that are
+ stored in the repository's ./.git/config file.
+ #1.List the remote connections you have to other repositories.
+ -> git remote
+ #2. Same as the above command, but include the URL of each connection.
+ -> git remote -v
+ #3.Create a new connection to a remote repository. After adding a remote,
+  you’ll be able to use ＜name＞ as a convenient shortcut for ＜url＞ in other Git commands.
+->git remote add <name> <url>
+e.g -> git remote add origin https://github.com/Hemanta222/ReactRouter.git
+#4. Remove the connection to the remote repository called ＜name＞.
+-> git remote rm <name>
+e.g -> git remote rm main
+#5.Rename a remote connection from ＜old-name＞ to ＜new-name＞.
+-> git remote rename <oldname> <new-name>
+e.g -> git remote rename origin remoteOrigin
+#6.Inspecting a Remote
+This output will contain a list of branches associated with 
+the remote and also the endpoints attached for fetching and pushing.
+-> git remote show origin
+-----------------------------------Git Fetch-------------------------
+ synchronizing your local repository with the central repository's main branch
+-> git fetch origin
+
+if anything changes on remote repository and you want make the changes(update) to your local repositories use
+-> git merge origin/main
+
+-------------------Git Pull-------------------------
+The git pull command is used to fetch and download content from a remote repository and immediately
+ update the local repository to match that content. Merging remote upstream changes into your local
+  repository is a common task in Git-based collaboration work flows. The git pull command is actually a 
+  combination of two other commands, git fetch followed by git merge. 
+  In the first stage of operation git pull will execute a git fetch scoped to the local branch
+   that HEAD is pointed at. Once the content is downloaded, git pull will enter a merge workflow.
+    A new merge commit will be-created and HEAD updated to point at the new commit.
+
+    How it works
+The git pull command first runs git fetch which downloads content from the specified remote repository. 
+Then a git merge is executed to merge the remote content refs and heads into a new local merge commit.
+
+#1.
+->git pull <remote>
+e.g -> git pull origin
+Fetch the specified remote’s copy of the current branch and immediately merge it into the local copy. 
+
+#2.fetches the remote content but does not create a new merge commit.
+git pull --no-commit <remote>
+
+#3.Same as the previous pull Instead of using git merge to integrate the remote branch with the local one,
+ use git rebase.
+git pull --rebase <remote>
+
+#4.Gives verbose output during a pull which displays the content being downloaded and the merge details.
+-> git pull --verbose
+--------------------------------create a new repository on the command line---------------------------
+1.create a new repository in the Github e.g "https://github.com/Hemanta222/ReactRouter.git"
+
+in the VS Code project
+2.git init
+3.git add README.md
+4.git commit -m "first commit"
+5.git branch -M main            {rename current brach to main}
+6.git remote add origin https://github.com/Hemanta222/ReactRouter.git
+7.git push -u origin main           { Pushing main brach to remote origin}
+
+---------------------------------push an existing repository from the command line-----------------------
+git remote add origin https://github.com/Hemanta222/ReactRouter.git
+git branch -M main
+git push -u origin main
+
+-----------------------Difference between two branches----------------------------
+e.g to see Difference between master and sunu branch    (local branches)
+-> git diff master..sunu
+
+e.g to see Difference between master and sunu branch (one local branch and one remote branch)
+-> git diff master origin/main
+
+
+----------------------Merging-------------------------
+Git performs merges two ways: fast-forward and three-way merge. 
+
+
+###Merging Branches in a Local Repository
+To merge branches locally, use git checkout to switch to the branch you want to merge into.
+This branch is typically the main branch. Next, use git merge and specify the name of the other branch
+to bring into this branch. This example merges the jeff/feature1 branch into the main branch.
+ Note that this is a fast-forward merge.
+-> git checkout main
+-> git merge jeff/feature1
+
+---------------------Merging Branches to Remote Repository-----------------------
+If you create a branch in your local repository, the remote repository is not aware of the branch’s existence.
+ Before you can push the branch code in the remote repository, you set the remote repository as the
+  upstream branch using the git pushcommand. This command simultaneously sets the upstream branch and 
+  pushes the branch contents to the remote repository.
+
+  git push --set-upstream origin <branch name>
+  or
+  git push -u origin <branch-name>
+
+
+The git push command is used to upload local repository content to a remote repository.
+
+---------------------Change Remote URL-----------------------
+-> git remote set-url origin  <new-url>
+e.g -> git remote set-url origin https://github.com/Hemanta222/ReactRouter.git
+---------------------Rename Remote branch-----------------------
+-> git remote rename <old-name> <new-name>
+e.g git remote rename origin repo
+
+
+
+-------------------------Fork the Repository.----------------------------------------------
+"The "Fork" is a copy of a repository.
+Forking a repository allows you to freely experiment with changes without affecting the original project.
+
+go to github.com and find the required project and click on Fork.
+It will make a copy to your github account.
+Now you can add that repository to your project
+
+--------------------------------Git collabration-----------------------
+1.clone project from github
+2.create a new branch -> git checkout -b 'branch1'
+2. git add .
+3.git commit -m 'init commit'
+4.hit push -u origin branch1
+5.On github the project manage will get merge pull request
+6.once manager commit in on github
+7.another user can also do 
+8.git pull
